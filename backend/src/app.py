@@ -9,15 +9,13 @@ from functools import wraps
 from flask_cors import CORS
 from functools import wraps
 import pytz 
-from dotenv import load_dotenv
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-app.config['SECRET_KEY'] =  app.secret_key = os.getenv('SECRET_KEY')  # Change this to a random secret key
+app.config['SECRET_KEY'] =  "herepascalAssiynment,@##loosing&"
 
 # intialiazing mongodb client
-load_dotenv()
-print(os.getenv("MONGODB_URI"))
-client = MongoClient(os.getenv('MONGODB_URI'))
+
+client = MongoClient("mongodb+srv://pascal:BQSPzuM6SJjuxTUo@cluster0.gr4bpnb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client['dashboard']
 collection = db['entries']
 
