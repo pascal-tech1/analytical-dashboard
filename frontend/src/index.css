@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.d3-tooltip {
+  line-height: 1.5;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: rgb(15, 15, 15);
+  border-radius: 4px;
+  pointer-events: none;
+  position: absolute;
+  text-align: left;
+}
+
+.form-input {
+  @apply my-1 dark:bg-lightdark shadow-sm  rounded-lg py-1 border mx-2  border-gray-200 dark:border-gray-800 focus:outline-none  focus:border-b-blue-400 px-2;
+}
+.btn-primary{
+  @apply border hover:bg-gray-200 dark:border-gray-900 dark:hover:bg-gray-950 rounded-md p-2 dark:bg-dark
+}
