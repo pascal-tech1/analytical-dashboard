@@ -69,7 +69,7 @@ def login():
     # using a simple testign accout 
     if username == 'test@blackcoffer.com' and password == 'test1234':
         token = jwt.encode(
-            {'user': username, 'exp': datetime.datetime.now(pytz.utc) + datetime.timedelta(minutes=30)},
+            {'user': username, 'exp': datetime.datetime.now(pytz.utc) + datetime.timedelta(minutes=30000000000000000000000000000)},
             app.config['SECRET_KEY'], 
             algorithm="HS256"
         )
