@@ -5,6 +5,7 @@ import { removeTokenFromLocalStorage } from "../utils/localStorage";
 import { CgMenuLeft, CgMenuRight } from "react-icons/cg";
 import { GrLineChart } from "react-icons/gr";
 import { MdOutlineBarChart } from "react-icons/md";
+import logo from "../../public/blackcoffer_logo.png";
 
 const DashboardLayout = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
@@ -41,7 +42,7 @@ const DashboardLayout = () => {
       >
         <Link to="/" className="hover:text-gray-400">
           <img
-            src="../../public/blackcoffer_logo.png"
+            src={logo}
             alt="blackcoffer_logo"
             className="p-4 bg-gray-300 rounded-md mb-1"
           />

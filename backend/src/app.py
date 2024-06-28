@@ -60,20 +60,22 @@ def token_required(f):
 @app.route('/login', methods=['POST'])
 def login():
     auth = request.json
-   
+    print(auth)
     if not auth or not auth.get('email') or not auth.get('password'):
         return make_response('Enter email and password', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
     
     username = auth.get('email')
     password = auth.get('password')
+    print(username, password)
 
     # using a simple testign accout 
     if username == 'test@blackcoffer.com' and password == 'test1234':
         token = jwt.encode(
-            {'user': username, 'exp': datetime.datetime.now(pytz.utc) + datetime.timedelta(minutes=30)},
+            {'user': username, 'exp': datetime.datetime.now(pytz.utc) + datetime.timedelta(minutes=30000000000000000000000000000)},
             app.config['SECRET_KEY'], 
             algorithm="HS256"
         )
+        print(jsonify({'token': token}))
         return jsonify({'token': token})
     
     return make_response('Could not verify, invalid credentials', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
