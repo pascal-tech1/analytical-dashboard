@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import  { useState, useRef, useEffect } from "react";
+import { Link, Outlet,  useNavigate } from "react-router-dom";
 import Theme from "../component/Theme";
 import { removeTokenFromLocalStorage } from "../utils/localStorage";
 import { CgMenuLeft, CgMenuRight } from "react-icons/cg";
