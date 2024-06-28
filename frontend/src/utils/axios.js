@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const customFetch = axios.create({
-  baseURL: "http://127.0.0.1:5000/",
+  baseURL: "https://analytical-dashboard-backend-ashy.vercel.app/",
 });
 
 export default customFetch;
