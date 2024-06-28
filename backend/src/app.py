@@ -34,26 +34,7 @@ if collection.count_documents({}) == 0:
         collection.insert_many(data)
 
 # this token_required function will be pass to every route that requires authentication 
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = request.headers.get('x-access-token')
-        
-        if not token:
-            return jsonify({'message': 'Token is missing!'}), 401
-        
-        try:
-            print(f"Token received: {token}")
-            data = jwt.decode(token.strip('"'), app.config['SECRET_KEY'], algorithms=["HS256"])
-            current_user = data['user']
-        except jwt.ExpiredSignatureError:
-            return jsonify({'message': 'Token has expired!'}), 401
-        except jwt.InvalidTokenError as e:
-            return jsonify({'message': 'Token is invalid!'}), 401
-        
-        return f(current_user, *args, **kwargs)
-    
-    return decorated
+
 
 
 # this is the post requst route for logining 
@@ -69,12 +50,8 @@ def login():
 
     # using a simple testign accout 
     if username == 'test@blackcoffer.com' and password == 'test1234':
-        token = jwt.encode(
-            {'user': username, 'exp': datetime.datetime.now(pytz.utc) + datetime.timedelta(minutes=30000000000000000000000000000000000)},
-            app.config['SECRET_KEY'], 
-            algorithm="HS256"
-        )
-        return jsonify({'token': token})
+       
+        return jsonify({username, password})
     
     return make_response('Could not verify, invalid credentials', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
@@ -88,7 +65,7 @@ def index():
 
 # protected linechart post route, 
 @app.route('/lineChart', methods=['POST'])
-@token_required
+
 def line_chart(current_user):
     try:
         # Get data from request body
@@ -149,7 +126,7 @@ def line_chart(current_user):
 
 from flask import request, jsonify
 @app.route('/barchart', methods=['POST'])
-@token_required
+
 def barchart(current_user):
   try:
     # Get data from request body
