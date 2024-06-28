@@ -38,7 +38,7 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {
-        console.log(payload)
+        console.log(payload);
         state.isLoading = false;
         state.token = payload.token;
         console.log(payload.token);
@@ -53,4 +53,3 @@ const userSlice = createSlice({
   },
 });
 export default userSlice.reducer;
-export const {} = userSlice.actions;

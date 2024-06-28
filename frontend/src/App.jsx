@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -13,7 +13,6 @@ import Home from "./generalPages/home";
 import Barchart from "./dashboard/barChart";
 import LineChart from "./dashboard/lineChart";
 import Error from "./generalPages/error";
-
 
 const App = () => {
   const theme = localStorage.getItem("theme");
@@ -32,21 +31,6 @@ const App = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [theme, isSystemInDakMode]);
-
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (e.key === "Escape") {
-      }
-      if (e.key === "Enter") {
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyPress);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []);
 
   return (
     <BrowserRouter>

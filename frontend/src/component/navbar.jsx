@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Theme from "./Theme";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isLoginIn, setIsLogin] = useState(false);
