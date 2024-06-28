@@ -9,6 +9,7 @@ from functools import wraps
 from flask_cors import CORS
 from functools import wraps
 import pytz 
+from dotenv import load_dotenv
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 app.config['SECRET_KEY'] =  "herepascalAssiynment,@##loosing&"
