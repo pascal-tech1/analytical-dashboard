@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Line } from "react-chartjs-2";
-import axios from "axios";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,7 +17,7 @@ import {
   getTokenFromLocalStorage,
   removeTokenFromLocalStorage,
 } from "../utils/localStorage";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 ChartJS.register(
@@ -44,8 +44,7 @@ const LineChartComp = () => {
   });
   const [selectedYAxisVariable, setSelectedYAxisVariable] =
     useState("intensity");
-  const [selectedXAxisVariable, setSelectedXAxisVariable] =
-    useState("start_year");
+  const [selectedXAxisVariable] = useState("start_year");
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
   const [isYAxisDropdownOpen, setIsYAxisDropdownOpen] = useState(false);
   const filterFormRef = useRef(null);
@@ -55,18 +54,16 @@ const LineChartComp = () => {
 
   useEffect(() => {
     fetchChartData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, selectedYAxisVariable, selectedXAxisVariable]);
 
-
-  // this function fetches the chart data from the backend and passed the data the 
+  // this function fetches the chart data from the backend and passed the data the
   // processDataForChart function
-  // would have made this in the redux slice but to save time from moving from file to file 
+  // would have made this in the redux slice but to save time from moving from file to file
   // i just did it headers
   // i also handled login out of user from the dashboard here if there is error in token so they login again
   const fetchChartData = async () => {
     try {
-      const url = `http://127.0.0.1:5000/lineChart`;
-
       // Retrieve the token from local storage
       const token = getTokenFromLocalStorage();
 
@@ -78,7 +75,7 @@ const LineChartComp = () => {
 
       // Make the request with the headers and data
       const response = await customFetch.post(
-        url,
+        "/lineChart",
         {
           filters,
           selectedYAxisVariable,
@@ -95,9 +92,8 @@ const LineChartComp = () => {
         error?.response?.data?.message || "error fetching chart";
       toast.error(errorMessage);
       if (
-        errorMessage === "has expired!" ||
-        "Token is invalid!" ||
-        "Token is missing!"
+        errorMessage ===
+        ("has expired!" || "Token is invalid!" || "Token is missing!")
       ) {
         removeTokenFromLocalStorage();
         //  navigate here to home
@@ -106,8 +102,8 @@ const LineChartComp = () => {
     }
   };
 
-  // this function receive the data from the fetchChartData function 
-  // and produce data that willbe pass to the line chart 
+  // this function receive the data from the fetchChartData function
+  // and produce data that willbe pass to the line chart
   const processDataForChart = (data) => {
     const labels = data.labels.filter((label) => label); // Remove empty labels
     const yAxisData = data.data.slice(0, labels.length); // Ensure data length matches labels
@@ -152,8 +148,7 @@ const LineChartComp = () => {
     setIsYAxisDropdownOpen(false);
   };
 
-
-  // this handleClickOutside function closes the dropdowns in the chart if outside of 
+  // this handleClickOutside function closes the dropdowns in the chart if outside of
   // the dropdowns is clicked
   const handleClickOutside = (e) => {
     if (
@@ -173,7 +168,7 @@ const LineChartComp = () => {
       setIsYAxisDropdownOpen(false);
     }
   };
-// listening for the click event on the page 
+  // listening for the click event on the page
   useEffect(() => {
     if (isFilterDropdownOpen || isYAxisDropdownOpen) {
       document.addEventListener("click", handleClickOutside);
@@ -185,8 +180,7 @@ const LineChartComp = () => {
     };
   }, [isFilterDropdownOpen, isYAxisDropdownOpen]);
 
-
-  // this is the option for styling and passing props to chart js 
+  // this is the option for styling and passing props to chart js
   // it is just an object that is constructed
   const options = {
     responsive: true,
