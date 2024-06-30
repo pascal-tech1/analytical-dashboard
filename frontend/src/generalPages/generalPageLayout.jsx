@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const GeneralPageLayout = () => {
   return (
-    <section className=" font-inter dashboardLayout  ">
+    <section className=" font-inter dashboardLayout dark:bg-lightdark dark:text-slate-400 ">
     <div className=" row-start-1 row-span-1  ">
         <Navbar />
       </div>
