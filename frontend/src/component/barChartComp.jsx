@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import { Bar } from "react-chartjs-2";
 
 import {
@@ -55,18 +55,18 @@ const BarChartComp = () => {
 
   useEffect(() => {
     fetchChartData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, selectedYAxisVariable, selectedXAxisVariable]);
 
-  const fetchChartData = async () => {
+  async function fetchChartData() {
     const headers = {
       "Content-Type": "application/json",
       "x-access-token": getTokenFromLocalStorage(),
     };
 
     try {
-      const url = `http://127.0.0.1:5000/barchart`;
       const response = await customFetch.post(
-        url,
+        "/barchart",
         {
           filters,
           selectedYAxisVariable,
@@ -82,16 +82,15 @@ const BarChartComp = () => {
         error?.response?.data?.message || "error fetching chart";
       toast.error(errorMessage);
       if (
-        errorMessage === "has expired!" ||
-        "Token is invalid!" ||
-        "Token is missing!"
+        errorMessage ===
+        ("has expired!" || "Token is invalid!" || "Token is missing!")
       ) {
         removeTokenFromLocalStorage();
         //  navigate here to home
         navigate("/");
       }
     }
-  };
+  }
 
   // the data gotten from the backend is passed to this function
   // the return from this function is passed to the Barchart itself
